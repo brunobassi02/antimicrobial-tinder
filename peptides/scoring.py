@@ -7,22 +7,22 @@ import pandas as pd
 
 def score_peptides(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Aplica reglas de scoring a cada fila (péptido).
+    Añade ``score`` en [0, 100]: menor MIC (µg/mL) implica mayor score.
 
-    Parameters
-    ----------
-    df
-        DataFrame con columnas de tus datos; debe incluir al menos las que uses en las reglas.
-
-    Returns
-    -------
-    pd.DataFrame
-        Copia del DataFrame con columna(s) de score añadidas (p. ej. ``score``).
+    Requiere la columna ``mic_ug_ml``. Si falta, ``score`` queda en 0.
     """
     out = df.copy()
-    # TODO: implementar reglas de scoring reales
-    if out.empty:
-        out["score"] = pd.Series(dtype=float)
-    else:
-        out["score"] = 0.0
+    if out.empty or "mic_ug_ml" not in out.columns:
+        out["score"] = 0.0 if not out.empty else pd.Series(dtype=float)
+        return out
+
+    mic = pd.to_numeric(out["mic_ug_ml"], errors="coerce")
+    valid = mic.notna()
+    out["score"] = 0.0
+    if valid.any():
+        lo, hi = float(mic[valid].min()), float(mic[valid].max())
+        if hi > lo:
+            out.loc[valid, "score"] = 100.0 * (hi - mic[valid]) / (hi - lo)
+        else:
+            out.loc[valid, "score"] = 50.0
     return out
