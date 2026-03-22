@@ -1,2 +1,11 @@
+pandas
+numpy
+tqdm
+python-dotenv
+modlamp
+biopython
+google-genai
 streamlit>=1.32.0
 pandas>=2.0.0
+google-genai>=1.0.0
+python-dotenv>=1.0.0
