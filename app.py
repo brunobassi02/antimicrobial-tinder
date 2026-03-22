@@ -357,11 +357,11 @@ if not filtered_df.empty:
             st.markdown(f"**Categoría:** `{pep['Category']}` ✨")
             st.code(pep['Sequence_Normalized'], language="text")
             st.markdown(f"""
-            - **Carga Neta Raw:** `{pep['net_charge']:.2f}`
-            - **Hidrofobicidad (Eisenberg) Raw:** `{pep['hydrophobicity_eisenberg']:.2f}`
-            - **Anfipatía Raw (μH):** `{pep['hydrophobic_moment']:.2f}`
-            - **Longitud Raw:** `{pep['length']} aa`
-            - **Puntaje Total ✨🎯 Raw:** `{pep['FinalScore']:.1f}`
+            - **Carga Neta:** `{pep['net_charge']:.2f}`
+            - **Hidrofobicidad (Eisenberg):** `{pep['hydrophobicity_eisenberg']:.2f}`
+            - **Anfipatía (μH):** `{pep['hydrophobic_moment']:.2f}`
+            - **Longitud:** `{pep['length']} aa`
+            - **Puntaje Total ✨🎯:** `{pep['FinalScore']:.1f}`
             """)
 
 
